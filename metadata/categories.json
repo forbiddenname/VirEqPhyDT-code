@@ -1,0 +1,11 @@
+[
+  {"id": 0, "name": "bed", "shapenet": "02818832"},
+  {"id": 1, "name": "sofa", "shapenet": "04256520"},
+  {"id": 2, "name": "chair", "shapenet": "03001627"},
+  {"id": 3, "name": "bin", "shapenet": "02747177"},
+  {"id": 4, "name": "cabinet", "shapenet": "02933112"},
+  {"id": 5, "name": "display", "shapenet": "03211117"},
+  {"id": 6, "name": "table", "shapenet": "04379243"},
+  {"id": 7, "name": "bookshelf", "shapenet": "02871439"},
+  {"id": 8, "name": "bathtub", "shapenet": "02808440"}
+]
