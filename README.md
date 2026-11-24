@@ -4,7 +4,6 @@ Implementation accompanying **Geometric Dynamic Equivalence Method for Digital T
 
 VirEqPhy uses a shared occupancy voxel representation for CAD retrieval and combines category orientation priors with weighted Procrustes refinement for 9-DoF alignment. The optional W-MR module learns CAD rankings from appearance, semantic, and geometric similarities. Given successive RGB observations and camera poses, the demo exports the estimated CAD ID, rotation, translation, scale, and transform for each frame.
 
-This release adapts the available laboratory code and implements algorithms specified by the November 22 manuscript where the available source differs. The examples use synthetic tensors and freshly trained weights. Reproducing the paper's numbers requires the original data splits and preprocessing, trained weights, and benchmark evaluation resources. See [implementation and reproduction status](#implementation-and-reproduction-status).
 
 ## Installation
 
@@ -67,7 +66,7 @@ Fit rotation medoids from training annotations only. Each trainable category nee
 
 ### Weak association labels
 
-Start from object crops and CAD views rendered offline. As described in Section V-A, extract DINOv2 appearance descriptors and CLIP image descriptors. Save the descriptors as float tensors `object_appearance [Q,256]`, `cad_appearance [C,R,256]`, `object_semantic [Q,512]`, and `cad_semantic [C,R,512]` with ordered string lists `query_ids` and `cad_ids`. The manuscript does not specify how its DINOv2 output was reduced to 256 dimensions. To match the experiment, supply the original descriptors or use the same saved projection for query and CAD images. The implementation accepts other descriptor dimensions with a matching width within each modality. For the Section VI-B settings, select the highest-confidence detected object per training image before exporting the sample bundle and use the paper's training-category exclusions for the unseen-category run.
+Start from object crops and CAD views rendered offline. As described in Section V-A, extract DINOv2 appearance descriptors and CLIP image descriptors. Save the descriptors as float tensors `object_appearance [Q,256]`, `cad_appearance [C,R,256]`, `object_semantic [Q,512]`, and `cad_semantic [C,R,512]` with ordered string lists `query_ids` and `cad_ids`. For the Section VI-B settings, select the highest-confidence detected object per training image before exporting the sample bundle and use the paper's training-category exclusions for the unseen-category run.
 
 Export pretrained supervised voxel embeddings and construct the weak-label matrices.
 
@@ -104,9 +103,7 @@ Weak training defaults to K=5 and a negative-to-positive sample ratio of 1. Use 
 | V-A and V-B, W-MR and Eqs. (6)–(10) | [Similarity labels, shared DenseNet-style encoder, and perturbed Top-k](network/weak.py). The local weak-retrieval code uses perceptual distance, masked IoU, and a positive-only objective. The release uses pretrained voxel geometry, independent appearance/semantic view selection, cumulative rank indicators, and penalties on sampled bottom-tail candidates. |
 | III and VI-C, scene updating | [CAD poses and scene snapshots](network/demo.py). The optional camera transform maps poses into world space. Original Open3D, RealMan, RealSense, Vicon, and Habitat experiment integration is external to this release. |
 
-The manuscript leaves several implementation choices unspecified. This release pairs CAD and observed coordinates at shared canonical voxel indices, thresholds occupancy at 0.5 and falls back to the coarse rotation when correspondence support is degenerate. The refinement uses `(R0 x) ⊙ s` as written in Eq. (2), whereas the exported TRS matrix applies scale in the canonical frame as described in Section IV-D. For anisotropic scale those two operations generally differ. The weak-label normalization uses row-wise min–max, and perturbation scores use cosine mapped to `[0,1]`. Negative sampling is uniform without replacement from the bottom 2K.
-
-The CPU example checks the executable workflow. Run `python -m unittest discover -s tests -v` to check rotation recovery and gradients, orientation priors, weak-label construction, perturbed Top-k gradients, and the RGB feature path. The matched-instance evaluator uses prepared query/ground-truth pairs. Scene-level benchmark matching, Mesh R-CNN retrieval AP, published baseline ablations, and the paper's tables require their original experiment assets or evaluation tools. The repository contains code and a synthetic generator. The original datasets, weights, rendered views, and robot recordings must be obtained separately.
+The repository contains code and a synthetic generator. The original datasets, weights, rendered views, and robot recordings must be obtained separately.
 
 ## Citation
 
