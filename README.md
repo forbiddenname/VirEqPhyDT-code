@@ -107,13 +107,7 @@ The repository contains code and a synthetic generator. The original datasets, w
 
 ## Citation
 
-```bibtex
-@unpublished{li_vireqphy,
-  title = {Geometric Dynamic Equivalence Method for Digital Twin-Driven Embodied Agent Systems},
-  author = {Li, Xin and Zhang, Shiyuan and Zhou, Yanmin and Lu, Ping and Wang, Zhipeng and Jiang, Rong and Sang, Hongrui and He, Bin},
-  note = {Manuscript}
-}
-```
+
 
 ## Acknowledgments and licensing
 
