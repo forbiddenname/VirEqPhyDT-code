@@ -1,6 +1,6 @@
 # VirEqPhy
 
-Implementation accompanying **Geometric Dynamic Equivalence Method for Digital Twin-Driven Embodied Agent Systems** by Xin Li, Shiyuan Zhang, Yanmin Zhou, Ping Lu, Zhipeng Wang, Rong Jiang, Hongrui Sang, and Bin He. [Project page](https://forbiddenname.github.io/VirEqPhyDT/)
+Implementation accompanying **Geometric Dynamic Equivalence Method for Digital Twin-Driven Embodied Agent Systems**. [Project page](https://forbiddenname.github.io/VirEqPhyDT/)
 
 VirEqPhy uses a shared occupancy voxel representation for CAD retrieval and combines category orientation priors with weighted Procrustes refinement for 9-DoF alignment. The optional W-MR module learns CAD rankings from appearance, semantic, and geometric similarities. Given successive RGB observations and camera poses, the demo exports the estimated CAD ID, rotation, translation, scale, and transform for each frame.
 
